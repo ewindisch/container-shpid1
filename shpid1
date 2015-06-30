@@ -1,0 +1,9 @@
+#!/bin/bash
+trap clean_exit EXIT
+function clean_exit {
+ local pids=$(jobs -p)
+ if [[ "$pids" != "" ]]; then
+  kill $pids 2>/dev/null || :
+ fi
+ wait $pids 2>/dev/null
+}
